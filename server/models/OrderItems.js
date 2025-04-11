@@ -2,7 +2,7 @@ const { databaza } = require("../database");
 const { DataTypes } = require("sequelize/lib/sequelize");
 
 
-const OrderItems = databaza.define("OrderItems", {
+const OrderItems = databaza.define("Order_Items", {
     //product_id:{}
 
     order_id: {
