@@ -4,11 +4,11 @@ const Cart = require("./Cart")
 const User = databaza.define(
   "User",
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
+    // userId: {
+    //   type: DataTypes.INTEGER,
+    //   primaryKey: true,
+    //   autoIncrement: true,
+    // },
     name: {
       type: DataTypes.STRING(30),
       allowNull: false,

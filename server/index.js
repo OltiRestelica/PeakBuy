@@ -24,18 +24,17 @@ const Wishlist = require("./models/Wishlist");
 const Reviews = require("./models/Reviews");
 const Coupons = require("./models/Coupons");
 const User_Addresses = require("./models/User_Addresses");
-
 //thirrja e kontrollerave
-const SignUp = require("./controllers/UserController");
+const {SignUp , Login} = require("./controllers/UserController");
 
 
 dotenv.config();
 app.use(cors());
 
 app.post("/addUser", SignUp);
-
+app.post("/Login", Login);
 databaza.sync();
-app.listen(process.env.PORT, () => {
+app.listen(3000, () => {
   console.log("server is running on port " + process.env.PORT);
   connectToDatabase();
 });
