@@ -9,6 +9,8 @@ app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 const { connectToDatabase, databaza } = require("./database");
+
+//thirrja e tabelave
 const User = require("./models/User");
 const Categories = require("./models/Categories");
 const Products = require("./models/Products");
@@ -22,24 +24,13 @@ const Wishlist = require("./models/Wishlist");
 const Reviews = require("./models/Reviews");
 const Coupons = require("./models/Coupons");
 const User_Addresses = require("./models/User_Addresses");
+
+//thirrja e kontrollerave
 const SignUp = require("./controllers/UserController");
+
 
 dotenv.config();
 app.use(cors());
-
-app.get("/", (req, res) => {
-  res.send("welcome");
-});
-
-// app.get("/allUsers", (req, res) => {
-//   User.findAll()
-//     .then((users) => {
-//       res.send(users);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// });
 
 app.post("/addUser", SignUp);
 
