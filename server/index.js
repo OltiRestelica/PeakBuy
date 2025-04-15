@@ -27,9 +27,14 @@ const User_Addresses = require("./models/User_Addresses");
 //thirrja e kontrollerave
 const {SignUp , Login} = require("./controllers/UserController");
 
+//thirrja e routes
+const orderItemsRoutes = require('./routes/orderItemRoutes');
 
 dotenv.config();
 app.use(cors());
+
+app.use('/order-items', orderItemsRoutes);
+
 
 app.post("/addUser", SignUp);
 app.post("/Login", Login);

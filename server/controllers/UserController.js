@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 const SignUp = (req, res) => {
-  let { name, lastName, email, phoneNumber, address } = req.body;
+  const { name, lastName, email, phoneNumber, address } = req.body;
   const password = bcrypt.hashSync(req.body.password, 10);
 
   if (!name || !lastName || !email || !password || !phoneNumber || !address) {
