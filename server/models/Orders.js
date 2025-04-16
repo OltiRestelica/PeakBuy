@@ -1,19 +1,24 @@
-const { DataTypes } = require("sequelize/lib/sequelize");
 const { databaza } = require("../database");
+const { DataTypes } = require("sequelize/lib/sequelize");
 
-const Orders = databaza.define("Order", {
-  //   user_id: {
-  //     type: Sequelize.STRING(30),
-  //     allowNull: false,
-  //   },
+const Order = databaza.define('Order', {
+  // user_id: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   total_price: {
-    type: DataTypes.FLOAT(5,2),
+    type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM("pending", "shipped", "delivered", "canceled"),
-    defaultValue: "pending",
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'pending', // Default status is "pending"
   },
 });
 
-module.exports = Orders;
+module.exports = Order ;

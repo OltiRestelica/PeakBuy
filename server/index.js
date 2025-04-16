@@ -28,12 +28,16 @@ const User_Addresses = require("./models/User_Addresses");
 const {SignUp , Login} = require("./controllers/UserController");
 
 //thirrja e routes
+const orderRoutes = require('./routes/orderRoutes');
 const orderItemsRoutes = require('./routes/orderItemRoutes');
+
 
 dotenv.config();
 app.use(cors());
 
+app.use('/orders', orderRoutes);
 app.use('/order-items', orderItemsRoutes);
+
 
 
 app.post("/addUser", SignUp);
