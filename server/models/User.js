@@ -1,11 +1,10 @@
 const { databaza } = require("../database");
 const { DataTypes, Model } = require("sequelize");
-const Cart = require("./Cart");
 
 class User extends Model {}
 User.init(
   {
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -30,10 +29,6 @@ User.init(
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
     role: {
       type: DataTypes.ENUM("customer", "admin"),
       defaultValue: "customer",
@@ -42,11 +37,15 @@ User.init(
   {
     sequelize: databaza,
     modelName: "User",
+    tableName:"users"
   }
 );
 
 User.associate = (models) => {
+  User.hasMany(models.UserAddresses, { foreignKey: "user_id" });
   User.hasMany(models.Orders, { foreignKey: "user_id" });
+  User.hasMany(models.Cart, { foreignKey: "user_id" });
+  User.hasMany(models.Reviews, { foreignKey: "user_id" });
   User.hasMany(models.Wishlist, { foreignKey: "user_id" });
 };
 

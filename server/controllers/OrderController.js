@@ -1,5 +1,5 @@
-const  Order = require('../models/Orders'); 
 const  OrderItems  = require('../models/OrderItems'); 
+const { Orders } = require('../models');
 
 exports.createOrder = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ exports.createOrder = async (req, res) => {
       return res.status(400).json({ message: 'user_id and total_price are required.' });
     }
 
-    const newOrder = await databaza.models.orders.create({
+    const newOrder = await Orders.create({
       user_id,
       total_price,
       status: status || 'pending',  

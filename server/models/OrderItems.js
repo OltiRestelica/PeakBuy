@@ -4,13 +4,30 @@ const { DataTypes, Model } = require("sequelize");
 class OrderItems extends Model {}
 OrderItems.init(
   {
+    order_item_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     order_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "order",
+        key: "order_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: "products",
+        key: "product_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     },
     price: {
       type: DataTypes.DECIMAL(10, 2),
@@ -20,14 +37,11 @@ OrderItems.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    //   categorie: {
-    //     type: Sequelize.STRING(30),
-    //     allowNull: false,
-    //   },
   },
   {
     sequelize: databaza,
-    modelName: "OrderItems",
+    modelName: "OrderItem",
+    tableName:"orderItems"
   }
 );
 OrderItems.associate = (models) => {

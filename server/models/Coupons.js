@@ -1,26 +1,32 @@
 const { databaza } = require("../database");
-const { DataTypes } = require("sequelize/lib/sequelize");
+const { DataTypes, Model } = require("sequelize");
 
-
-const Coupons = databaza.define("Coupons", {
-    //product_id:{}
- 
-  code: {
-    type: DataTypes.TEXT,
-    allowNull: false,
+class Coupons extends Model {}
+Coupons.init(
+  {
+    coupon_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    code: {
+      type: DataTypes.STRING(30),
+      allowNull: false,
+    },
+    discount: {
+      type: DataTypes.DECIMAL(10, 2),
+      defaultValue: 0.0,
+    },
+    expiration_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
-  discount: {
-    type: DataTypes.DECIMAL(10, 2),
-    defaultValue: 0.00,
-  },
-  expiration_date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-//   categorie: {
-//     type: Sequelize.STRING(30),
-//     allowNull: false, 
-//   },
-});
+  {
+    sequelize: databaza,
+    modelName: "Coupon",
+    tableName:"coupons"
+  }
+);
 
 module.exports = Coupons;
