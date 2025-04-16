@@ -1,31 +1,37 @@
 const { databaza } = require("../database");
-const { DataTypes } = require("sequelize/lib/sequelize");
+const { DataTypes, Model } = require("sequelize");
 
-
-const OrderItems = databaza.define("Order_Items", {
-    //product_id:{}
-
+class OrderItems extends Model {}
+OrderItems.init(
+  {
     order_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.DECIMAL(10, 2),
+      defaultValue: 0.0,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    //   categorie: {
+    //     type: Sequelize.STRING(30),
+    //     allowNull: false,
+    //   },
   },
-  product_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.DECIMAL(10, 2),
-    defaultValue: 0.00,
-  },
-  quantity: {
-    type: DataTypes.INTEGER,   
-    allowNull: false,
-
-  },
-//   categorie: {
-//     type: Sequelize.STRING(30),
-//     allowNull: false, 
-//   },
-});
-
+  {
+    sequelize: databaza,
+    modelName: "OrderItems",
+  }
+);
+OrderItems.associate = (models) => {
+  OrderItems.belongsTo(models.Orders, { foreignKey: "order_id" });
+  OrderItems.belongsTo(models.Products, { foreignKey: "product_id" });
+};
 module.exports = OrderItems;
