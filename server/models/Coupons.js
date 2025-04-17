@@ -17,6 +17,7 @@ Coupons.init(
       type: DataTypes.DECIMAL(10, 2),
       defaultValue: 0.0,
     },
+    
     expiration_date: {
       type: DataTypes.DATE,
       allowNull: false,
