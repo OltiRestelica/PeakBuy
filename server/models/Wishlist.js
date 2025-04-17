@@ -1,22 +1,45 @@
 const { databaza } = require("../database");
-const { DataTypes } = require("sequelize/lib/sequelize");
+const { DataTypes, Model } = require("sequelize");
 
-
-const Wishlist = databaza.define("Wishlist", {
-    //product_id:{}
-
-    order_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+class Wishlist extends Model {}
+Wishlist.init(
+  {
+    wishlist_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "user_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "products",
+        key: "product_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
   },
-  product_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },  
-//   categorie: {
-//     type: Sequelize.STRING(30),
-//     allowNull: false, 
-//   },
-});
+  {
+    sequelize: databaza,
+    modelName: "Wishlist",
+    tableName:"wishlists"
+  }
+);
+
+Wishlist.associate = (models) => {
+  Wishlist.belongsTo(models.User, { foreignKey: "user_id" });
+  Wishlist.belongsTo(models.Products, { foreignKey: "product_id" });
+};
 
 module.exports = Wishlist;

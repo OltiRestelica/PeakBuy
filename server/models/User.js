@@ -1,14 +1,14 @@
 const { databaza } = require("../database");
-const { DataTypes } = require("sequelize/lib/sequelize");
-const Cart = require("./Cart")
-const User = databaza.define(
-  "User",
+const { DataTypes, Model } = require("sequelize");
+
+class User extends Model {}
+User.init(
   {
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   primaryKey: true,
-    //   autoIncrement: true,
-    // },
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING(30),
       allowNull: false,
@@ -29,18 +29,24 @@ const User = databaza.define(
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING(30),
-      allowNull: false,
-    },
     role: {
       type: DataTypes.ENUM("customer", "admin"),
       defaultValue: "customer",
     },
   },
   {
-    id: false,
+    sequelize: databaza,
+    modelName: "User",
+    tableName:"users"
   }
 );
+
+User.associate = (models) => {
+  User.hasMany(models.UserAddresses, { foreignKey: "user_id" });
+  User.hasMany(models.Orders, { foreignKey: "user_id" });
+  User.hasMany(models.Cart, { foreignKey: "user_id" });
+  User.hasMany(models.Reviews, { foreignKey: "user_id" });
+  User.hasMany(models.Wishlist, { foreignKey: "user_id" });
+};
 
 module.exports = User;
