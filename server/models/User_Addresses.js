@@ -41,7 +41,7 @@ UserAddresses.init(
 
 UserAddresses.associate = (models) => {
   UserAddresses.belongsTo(models.User, { foreignKey: "user_id" });
-  UserAddresses.hasMany(models.Orders, { foreignKey: "order_id" });
+  // UserAddresses.hasMany(models.Orders, { foreignKey: "order_id" });
 };
 
 module.exports = UserAddresses;

@@ -13,7 +13,7 @@ Payments.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: "order",
+        model: "orders",
         key: "order_id",
       },
       onDelete: "CASCADE",

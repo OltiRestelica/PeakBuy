@@ -4,7 +4,7 @@ const { DataTypes, Model } = require("sequelize");
 class ProductVariants extends Model {}
 ProductVariants.init(
   {
-    variantId: {
+    variant_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,

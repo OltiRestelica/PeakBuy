@@ -4,7 +4,7 @@ const { DataTypes, Model } = require("sequelize");
 class Order extends Model {}
 Order.init(
   {
-    orderId: {
+    order_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
@@ -19,14 +19,14 @@ Order.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
-    addressId: {
+    address_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: "userAddresses",
         key: "address_id",
       },
-      onDelete: "SET NULL",
+      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
     total_price: {
