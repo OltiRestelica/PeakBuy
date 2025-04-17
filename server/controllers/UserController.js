@@ -70,7 +70,7 @@ const Login = (req, res) => {
             data: "User not found",
           });
         } else {
-          const isPasswordValid = bcrypt.compareSync(password, user.password);
+          const isPasswordValid = bcrypt.compare(password, user.password);
           
           if (!isPasswordValid) {
             res.status(401).json({
