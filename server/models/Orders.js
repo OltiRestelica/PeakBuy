@@ -1,19 +1,58 @@
-const { DataTypes } = require("sequelize/lib/sequelize");
 const { databaza } = require("../database");
+const { DataTypes, Model } = require("sequelize");
 
-const Orders = databaza.define("Order", {
-  //   user_id: {
-  //     type: Sequelize.STRING(30),
-  //     allowNull: false,
-  //   },
-  total_price: {
-    type: DataTypes.FLOAT(5,2),
-    allowNull: false,
+class Order extends Model {}
+Order.init(
+  {
+    order_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "user_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    
+    address_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "userAddresses",
+        key: "address_id",
+      },
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    },
+    total_price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.ENUM("pending", "shipped", "delivered", "canceled"),
+      allowNull: false,
+      defaultValue: "pending",
+    },
   },
-  status: {
-    type: DataTypes.ENUM("pending", "shipped", "delivered", "canceled"),
-    defaultValue: "pending",
-  },
-});
+  {
+    sequelize: databaza,
+    modelName: "Order",
+    tableName:"orders"
+  }
+);
 
-module.exports = Orders;
+Order.associate = (models) => {
+  Order.belongsTo(models.User, { foreignKey: "user_id" });
+  Order.belongsTo(models.UserAddresses, { foreignKey: "address_id" });
+  Order.hasMany(models.OrderItems, { foreignKey: "order_id" });
+  Order.hasOne(models.Payments, { foreignKey: "order_id" });
+  Order.hasOne(models.Shipping, { foreignKey: "order_id" });
+};
+
+module.exports = Order;
