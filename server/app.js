@@ -34,18 +34,24 @@ const { SignUp, Login } = require("./controllers/UserController");
 //thirrja e routes
 const orderRoutes = require("./routes/orderRoutes");
 const orderItemsRoutes = require("./routes/orderItemRoutes");
+const wishlistRoutes = require('./routes/wishlistRoutes');
+const couponRoutes = require('./routes/couponRoutes');
+const productRoutes = require('./routes/ProductRoutes');
 const categoryRoutes = require("./routes/categoryRoutes");
-
 dotenv.config();
 app.use(cors());
 
 app.use("/orders", orderRoutes);
 app.use("/order-items", orderItemsRoutes);
-
+app.use('/wishlist', wishlistRoutes);
+app.use('/coupons', couponRoutes);
+app.use('/products', productRoutes);
 app.use("/categories", categoryRoutes);
 
 app.post("/addUser", SignUp);
 app.post("/Login", Login);
+
+
 databaza.sync();
 app.listen(3000, () => {
   console.log("server is running on port " + process.env.PORT);
