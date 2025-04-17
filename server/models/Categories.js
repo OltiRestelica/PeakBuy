@@ -13,6 +13,7 @@ Categories.init(
       type: DataTypes.STRING(30),
       allowNull: false,
     },
+    
   },
   {
     sequelize: databaza,

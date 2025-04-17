@@ -19,6 +19,7 @@ Payments.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -21,6 +21,7 @@ Products.init(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
+    
     stock: {
       type: DataTypes.STRING(255),
       allowNull: false,

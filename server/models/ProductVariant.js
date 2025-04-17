@@ -19,6 +19,7 @@ ProductVariants.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     name: {
       type: DataTypes.STRING(50),
       allowNull: false,

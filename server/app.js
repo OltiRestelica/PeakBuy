@@ -43,7 +43,7 @@ app.use("/order-items", orderItemsRoutes);
 
 app.post("/addUser", SignUp);
 app.post("/Login", Login);
-databaza.sync();
+databaza.sync({force:true});
 app.listen(3000, () => {
   console.log("server is running on port " + process.env.PORT);
   connectToDatabase();

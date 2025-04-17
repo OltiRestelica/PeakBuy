@@ -19,6 +19,7 @@ Order.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     address_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

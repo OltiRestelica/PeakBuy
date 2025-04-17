@@ -20,6 +20,7 @@ Shipping.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     tracking_number: {
       type: DataTypes.STRING(100),
       allowNull: false,

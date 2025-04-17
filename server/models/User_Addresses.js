@@ -19,6 +19,7 @@ UserAddresses.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     address: {
       type: DataTypes.TEXT,
       allowNull: false,

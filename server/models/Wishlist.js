@@ -19,6 +19,7 @@ Wishlist.init(
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+    
     product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
