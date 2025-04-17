@@ -2,10 +2,7 @@ const { databaza } = require("../database");
 const { DataTypes } = require("sequelize/lib/sequelize");
 
 const Order = databaza.define('Order', {
-  // user_id: {
-  //   type: DataTypes.INTEGER,
-  //   allowNull: false,
-  // },
+
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,

@@ -2,6 +2,10 @@ const { databaza } = require("../database");
 const { DataTypes } = require("sequelize/lib/sequelize");
 const {User} = require("./User")
 const Cart = databaza.define("Cart", {
+  // user_id: {
+  //   type: DataTypes.INTEGER,
+  //   allowNull: false,
+  // },
   order_id: {
     type: DataTypes.INTEGER,
     allowNull: false,

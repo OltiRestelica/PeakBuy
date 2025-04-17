@@ -1,21 +1,22 @@
 const  Order = require('../models/Orders'); 
 const  OrderItems  = require('../models/OrderItems'); 
 
+
 exports.createOrder = async (req, res) => {
   try {
-    const { user_id, total_price, status } = req.body;
+    const { user_id,  total_price, status } = req.body;
 
     if (!user_id || !total_price) {
       return res.status(400).json({ message: 'user_id and total_price are required.' });
     }
 
-    const newOrder = await databaza.models.orders.create({
+    const newOrder = await Order.create({
       user_id,
       total_price,
       status: status || 'pending',  
     });
 
-    res.status(201).json({ message: 'Order created successfully', order: neworders });
+    res.status(201).json({ message: 'Order created successfully', order: newOrder });
   } catch (error) {
     res.status(500).json({ message: 'Failed to create order', error: error.message });
   }
@@ -23,7 +24,7 @@ exports.createOrder = async (req, res) => {
 
 exports.getAllOrders = async (req, res) => {
   try {
-    const orders = await databaza.models.orders.findAll();
+    const orders = await Order.findAll();
 
     res.status(200).json({ orders });
   } catch (error) {
@@ -36,7 +37,7 @@ exports.getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const order = await databaza.models.orders.findOne({
+    const order = await Order.findOne({
       where: { id },
       include: [{ model: orders, as: 'orderItems' }],
     });

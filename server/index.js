@@ -31,13 +31,11 @@ const {SignUp , Login} = require("./controllers/UserController");
 const orderRoutes = require('./routes/orderRoutes');
 const orderItemsRoutes = require('./routes/orderItemRoutes');
 
-
 dotenv.config();
 app.use(cors());
 
 app.use('/orders', orderRoutes);
 app.use('/order-items', orderItemsRoutes);
-
 
 
 app.post("/addUser", SignUp);
