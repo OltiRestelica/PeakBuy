@@ -4,13 +4,14 @@ const  OrderItems  = require('../models/OrderItems');
 
 exports.createOrder = async (req, res) => {
   try {
-    const { user_id,  total_price, status } = req.body;
+    const { address_id ,user_id,  total_price, status } = req.body;
 
     if (!user_id || !total_price) {
       return res.status(400).json({ message: 'user_id and total_price are required.' });
     }
 
     const newOrder = await Order.create({
+      address_id,
       user_id,
       total_price,
       status: status || 'pending',  
@@ -38,8 +39,13 @@ exports.getOrderById = async (req, res) => {
     const { id } = req.params;
 
     const order = await Order.findOne({
-      where: { id },
-      include: [{ model: orders, as: 'orderItems' }],
+      where: { order_id: id },
+      include: [
+        {
+          model: OrderItems,
+          as: 'OrderItems'  // match the exact alias defined in hasMany association
+        }
+      ]
     });
 
     if (!order) {
@@ -51,7 +57,6 @@ exports.getOrderById = async (req, res) => {
     res.status(500).json({ message: 'Failed to retrieve order', error: error.message });
   }
 };
-
 exports.deleteOrder = async (req, res) => {
     try {
       const { id } = req.params;

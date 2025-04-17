@@ -4,7 +4,7 @@ const OrderItemsController = require("../controllers/OrderItemsController");
 
 router.post("/", OrderItemsController.addOrderItem);
 
-router.get("/order/:orderId", OrderItemsController.getOrderItemsByOrderId);
+router.get("/:orderId", OrderItemsController.getOrderItemsByOrderId);
 
 router.put("/:id", OrderItemsController.updateOrderItemQuantity);
 

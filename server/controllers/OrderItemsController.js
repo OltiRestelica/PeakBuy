@@ -26,7 +26,7 @@ exports.getOrderItemsByOrderId = async (req, res) => {
     const { orderId } = req.params;
 
     const items = await OrderItems.findAll({
-      where: { order_id: orderId }
+      where: { order_item_id: orderId }
     });
 
     res.status(200).json({ orderItems: items });
