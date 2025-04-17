@@ -30,12 +30,16 @@ const {SignUp , Login} = require("./controllers/UserController");
 //thirrja e routes
 const orderRoutes = require('./routes/orderRoutes');
 const orderItemsRoutes = require('./routes/orderItemRoutes');
+const wishlistRoutes = require('./routes/wishlistRoutes');
+const couponRoutes = require('./routes/couponRoutes');
 
 dotenv.config();
 app.use(cors());
 
 app.use('/orders', orderRoutes);
 app.use('/order-items', orderItemsRoutes);
+app.use('/wishlist', wishlistRoutes);
+app.use('/coupons', couponRoutes);
 
 
 app.post("/addUser", SignUp);
