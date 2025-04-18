@@ -1,54 +1,78 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const validator = require("validator");
+const JWT = require("jsonwebtoken");
+require("dotenv").config();
+
+const createToken = (user_id) => {
+  return JWT.sign({ user_id }, process.env.SECRET, { expiresIn: "3d" });
+};
 
 const SignUp = (req, res) => {
-  const { name, lastName, email, phoneNumber, address } = req.body;
-  const password = bcrypt.hashSync(req.body.password, 10);
+  const { name, lastName, email, password, phoneNumber } = req.body;
 
-  if (!name || !lastName || !email || !password || !phoneNumber || !address) {
-    res.send(400, "Please fill out the form");
+  if (!name || !lastName || !email || !password || !phoneNumber) {
+    res.status(400).json({
+      status: 0,
+      mssg: "Please make sure to fill out all the fields!",
+    });
   } else {
-    User.findOne({
-      where: {
-        email,
-      },
-    })
-      .then((user) => {
-        if (user) {
+    const hash = bcrypt.hashSync(password, 10);
+    if (!validator.isEmail(email)) {
+      res.status(400).json({
+        status: 0,
+        mssg: "This email is invalid!",
+      });
+    } else {
+      User.findOne({
+        where: {
+          email,
+        },
+      })
+        .then((user) => {
+          if (user) {
+            res.status(500).json({
+              status: 0,
+              data: "This user exist",
+            });
+          } else {
+            if (!validator.isStrongPassword(password)) {
+              res.status(400).json({
+                status: 0,
+                mssg: "Password is not strong enough",
+              });
+            } else {
+              User.create({
+                name,
+                lastName,
+                email,
+                password: hash,
+                phoneNumber,
+              })
+                .then((newUser) => {
+                  const token = createToken(newUser.user_id);
+                  res.status(200).json({
+                    status: 1,
+                    data: newUser,
+                    token,
+                  });
+                })
+                .catch((err) => {
+                  res.status(500).json({
+                    status: 0,
+                    data: err,
+                  });
+                });
+            }
+          }
+        })
+        .catch((err) => {
           res.status(500).json({
             status: 0,
-            data: "This user exist",
+            data: err,
           });
-        } else {
-            User.create({
-              name,
-              lastName,
-              email,
-              password,
-              phoneNumber,
-              address,
-            })
-              .then((newUser) => {
-                res.status(200).json({
-                  status: 1,
-                  data: newUser,
-                });
-              })
-              .catch((err) => {
-                res.status(500).json({
-                  status: 0,
-                  data: err,
-                });
-              });
-          
-        }
-      })
-      .catch((err) => {
-        res.status(500).json({
-          status: 0,
-          data: err,
         });
-      });
+    }
   }
 };
 
@@ -56,7 +80,10 @@ const Login = (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).send("Please fill out the form");
+    res.status(400).json({
+      status: 0,
+      mssg: "Please make sure to fill out all the fields!",
+    });
   } else {
     User.findOne({
       where: {
@@ -70,17 +97,18 @@ const Login = (req, res) => {
             data: "User not found",
           });
         } else {
-          const isPasswordValid = bcrypt.compare(password, user.password);
-          
-          if (!isPasswordValid) {
+          const isPasswordValid = bcrypt.compareSync(password, user.password);
+          if (isPasswordValid === false) {
             res.status(401).json({
               status: 0,
-              data: "Invalid password",
+              data: "The password is incorrect!",
             });
           } else {
+            const token = createToken(user.user_id);
             res.status(200).json({
               status: 1,
               data: user,
+              token,
             });
           }
         }
@@ -94,4 +122,4 @@ const Login = (req, res) => {
   }
 };
 
-module.exports =  {SignUp , Login};
+module.exports = { SignUp, Login };

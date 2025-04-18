@@ -7,6 +7,8 @@ const bodyparser = require("body-parser");
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
+dotenv.config();
+app.use(cors());
 
 const { connectToDatabase, databaza } = require("./database");
 
@@ -28,29 +30,22 @@ const {
   User_Addresses,
 } = models;
 
-//thirrja e kontrollerave
-const { SignUp, Login } = require("./controllers/UserController");
-
 //thirrja e routes
 const orderRoutes = require("./routes/orderRoutes");
 const orderItemsRoutes = require("./routes/orderItemRoutes");
-const wishlistRoutes = require('./routes/wishlistRoutes');
-const couponRoutes = require('./routes/couponRoutes');
-const productRoutes = require('./routes/ProductRoutes');
+const wishlistRoutes = require("./routes/wishlistRoutes");
+const couponRoutes = require("./routes/couponRoutes");
+const productRoutes = require("./routes/ProductRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
-dotenv.config();
-app.use(cors());
+const userRoutes = require("./routes/userRoutes");
 
 app.use("/orders", orderRoutes);
 app.use("/order-items", orderItemsRoutes);
-app.use('/wishlist', wishlistRoutes);
-app.use('/coupons', couponRoutes);
-app.use('/products', productRoutes);
+app.use("/wishlist", wishlistRoutes);
+app.use("/coupons", couponRoutes);
+app.use("/products", productRoutes);
 app.use("/categories", categoryRoutes);
-
-app.post("/addUser", SignUp);
-app.post("/Login", Login);
-
+app.use("/user", userRoutes);
 
 databaza.sync();
 app.listen(3000, () => {

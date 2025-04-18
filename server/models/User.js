@@ -21,9 +21,9 @@ User.init(
       type: DataTypes.STRING(30),
       allowNull: false,
     },
-    
+
     password: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
     phoneNumber: {
@@ -38,7 +38,7 @@ User.init(
   {
     sequelize: databaza,
     modelName: "User",
-    tableName:"users"
+    tableName: "users",
   }
 );
 
