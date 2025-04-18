@@ -1,6 +1,7 @@
 import React from "react";
 import { FaUser, FaEnvelope, FaLock, FaPhoneAlt, FaHome } from "react-icons/fa";
 import "./index.css";
+
 // #27ea66
 
 function SignUp() {

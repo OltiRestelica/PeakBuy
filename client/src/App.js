@@ -1,9 +1,7 @@
-import SignUp from './SignupForm';
+import SignUp from "./SignupForm";
 
 function App() {
-  return (
-   <SignUp></SignUp>
-  );
+  return <SignUp />;
 }
 
 export default App;

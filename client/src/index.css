@@ -1,13 +1,21 @@
-*{
-    font-family: 'Merriweather', serif;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: 'Garamond', serif;
   background: #f9f9f9;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+}
 .SignUpForm {
   width: 100%;
   max-width: 400px;
@@ -15,14 +23,6 @@ body {
   padding: 30px;
   border: 1px solid #e4e2e1;
   text-align: center;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-  padding: 20px;
 }
 
 .registerBtn {
@@ -35,7 +35,7 @@ body {
   font-size: 17px;
   font-weight: 500;
   cursor: pointer;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: sans-serif;
 }
 
 h2 {
