@@ -1,12 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const UserAddressesController = require("../contrillers/userAddressesController");
-//const verifyToken = require("../middleware/authMiddleware");
+const {
+  getUserAddresses,
+  addUserAddresses,
+  deleteUserAddress,
+} = require("../controllers/UserAddressesController");
+// const verifyToken = require("../middleware/authMiddleware");
 
-//-+*router.use(verifyToken);
+// router.use(verifyToken); // Protect all routes below
 
-router.get("/", UserAddressesController.getUserAddresses);
-router.post("/", UserAddressesController.addUserAddres);
-router.delete("/:id", UserAddressesContorller.deleteUserAddress);
+router.get("/", getUserAddresses);
+router.post("/", addUserAddresses);
+router.delete("/:id", deleteUserAddress);
 
 module.exports = router;
+
+
+// const express = require("express");
+// const router = express.Router();
+// const {
+//   getUserAddresses,
+//   addUserAddresses,
+//   deleteUserAddress,
+// } = require("../controllers/UserAddressesController");
+// //const verifyToken = require("../middleware/authMiddleware");
+
+// //-+*router.use(verifyToken);
+
+// router.get("/", getUserAddresses)
+// router.post("/", addUserAddresses);
+// router.delete("/:id", deleteUserAddress);
+
+// module.exports = router;

@@ -1,6 +1,6 @@
-const UserAddresses = require("../models/UserAdresses");
+const UserAddresses = require("../models/User_Addresses");
 
-const getUserAddresses = async (req, res) => {
+exports.getUserAddresses = async (req, res) => {
   const user_id = req.user.user_id;
 
   try {
@@ -9,13 +9,13 @@ const getUserAddresses = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       status: 0,
-      message: "Could not fetch adresses",
+      message: "Could not fetch addresses",
       error: err.message,
     });
   }
 };
 
-const addUserAddresses = async (req, res) => {
+exports.addUserAddresses = async (req, res) => {
   const user_id = req.user.user_id;
   const { address, city, country } = req.body;
 
@@ -26,18 +26,17 @@ const addUserAddresses = async (req, res) => {
       city,
       country,
     });
-    res.status(201)
-      .json({ status: 1, message: "Address created", data: newAddress });
+    res.status(201).json({ status: 1, message: "Address created", data: newAddress });
   } catch (err) {
     res.status(500).json({
       status: 0,
-      message: "Faild to create address",
+      message: "Failed to create address",
       error: err.message,
     });
   }
 };
 
-const deleteUserAddress = async (req, res) => {
+exports.deleteUserAddress = async (req, res) => {
   const user_id = req.user.user_id;
   const address_id = req.params.id;
 
@@ -47,21 +46,86 @@ const deleteUserAddress = async (req, res) => {
     });
 
     if (deleted) {
-      res.status(200).josn({ status: 1, message: "Address deleted" });
+      res.status(200).json({ status: 1, message: "Address deleted" });
     } else {
-      res.status(404).json({ status: 0, message: "Address not found " });
+      res.status(404).json({ status: 0, message: "Address not found" });
     }
   } catch (err) {
     res.status(500).json({
       status: 0,
-      message: "Failed to deleted address",
+      message: "Failed to delete address",
       error: err.message,
     });
   }
 };
 
-module.exports = {
-  getUserAddresses,
-  addUserAddress,
-  deleteUserAddress,
-};
+
+
+
+// const UserAddresses = require("../models/UserAdresses");
+
+// const getUserAddresses = async (req, res) => {
+//   const user_id = req.user_id;
+
+//   try {
+//     const addresses = await UserAddresses.findAll({ where: { user_id } });
+//     res.status(200).json({ status: 1, data: addresses });
+//   } catch (err) {
+//     res.status(500).json({
+//       status: 0,
+//       message: "Could not fetch adresses",
+//       error: err.message,
+//     });
+//   }
+// };
+
+// // const addUserAddresses = async (req, res) => {
+// //   const user_id = req.user.user_id;
+// //   const { address, city, country } = req.body;
+
+// //   try {
+// //     const newAddress = await UserAddresses.create({
+// //       user_id,
+// //       address,
+// //       city,
+// //       country,
+// //     });
+// //     res.status(201)
+// //       .json({ status: 1, message: "Address created", data: newAddress });
+// //   } catch (err) {
+// //     res.status(500).json({
+// //       status: 0,
+// //       message: "Faild to create address",
+// //       error: err.message,
+// //     });
+// //   }
+// // };
+
+// // const deleteUserAddress = async (req, res) => {
+// //   const user_id = req.user.user_id;
+// //   const address_id = req.params.id;
+
+// //   try {
+// //     const deleted = await UserAddresses.destroy({
+// //       where: { address_id, user_id },
+// //     });
+
+// //     if (deleted) {
+// //       res.status(200).json({ status: 1, message: "Address deleted" });
+// //     } else {
+// //       res.status(404).json({ status: 0, message: "Address not found " });
+// //     }
+// //   } catch (err) {
+// //     res.status(500).json({
+// //       status: 0,
+// //       message: "Failed to deleted address",
+// //       error: err.message,
+// //     });
+// //   }
+// // };
+
+// module.exports = {
+//   getUserAddresses,
+//   // addUserAddresses,
+//   // deleteUserAddress,
+// };

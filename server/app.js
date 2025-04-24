@@ -27,7 +27,7 @@ const {
   Wishlist,
   Reviews,
   Coupons,
-  User_Addresses,
+  UserAddresses,
 } = models;
 
 //thirrja e routes
@@ -38,7 +38,7 @@ const couponRoutes = require("./routes/couponRoutes");
 const productRoutes = require("./routes/ProductRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const userRoutes = require("./routes/userRoutes");
-const cartRoutes = require("./routes/cartRoutes");
+const cartRoutes = require("./routes/CartRoutes");
 const userAddressesRoutes = require("./routes/userAddressesRoutes");
 
 app.use("/orders", orderRoutes);

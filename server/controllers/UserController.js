@@ -77,7 +77,8 @@ const SignUp = (req, res) => {
 };
 
 const Login = (req, res) => {
-  const { email, password } = req.body;
+  const  password  = req.body.password;
+  const email= req.body.email;
 
   if (!email || !password) {
     res.status(400).json({
