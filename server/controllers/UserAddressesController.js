@@ -16,8 +16,8 @@ exports.getUserAddresses = async (req, res) => {
 };
 
 exports.addUserAddresses = async (req, res) => {
-  const user_id = req.user.user_id;
-  const { address, city, country } = req.body;
+  // const user_id = req.user.user_id;
+  const { user_id, address, city, country } = req.body;
 
   try {
     const newAddress = await UserAddresses.create({
@@ -37,7 +37,7 @@ exports.addUserAddresses = async (req, res) => {
 };
 
 exports.deleteUserAddress = async (req, res) => {
-  const user_id = req.user.user_id;
+  const user_id = req.body;
   const address_id = req.params.id;
 
   try {

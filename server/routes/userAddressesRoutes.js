@@ -7,7 +7,7 @@ const {
 } = require("../controllers/UserAddressesController");
 // const verifyToken = require("../middleware/authMiddleware");
 
-// router.use(verifyToken); // Protect all routes below
+// router.use(verifyToken);
 
 router.get("/", getUserAddresses);
 router.post("/", addUserAddresses);

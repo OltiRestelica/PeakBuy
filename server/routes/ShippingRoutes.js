@@ -1,8 +1,8 @@
 const express = require("express");
-const routes = express.Router();
+const router = express.Router();
 const ShippingController = require("../controllers/ShippingController");
 
-router.post("/shipping", ShippingController.createShipping);
-router.get("/shipping/:order_id", ShippingController.getSippingByOrder);
+router.post("/addShipping", ShippingController.createShipping);
+router.get("/getShipping/:order_id", ShippingController.getShippingByOrder);
 
 module.exports = router;

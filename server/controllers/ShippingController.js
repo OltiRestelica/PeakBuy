@@ -1,4 +1,4 @@
-const Sjipping = require("../models/Shipping");
+const Shipping = require("../models/Shipping");
 
 const createShipping = async (req, res) => {
   try {

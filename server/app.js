@@ -40,6 +40,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const userRoutes = require("./routes/userRoutes");
 const cartRoutes = require("./routes/CartRoutes");
 const userAddressesRoutes = require("./routes/userAddressesRoutes");
+const shippingRoutes = require("./routes/ShippingRoutes")
 
 app.use("/orders", orderRoutes);
 app.use("/order-items", orderItemsRoutes);
@@ -50,6 +51,7 @@ app.use("/categories", categoryRoutes);
 app.use("/user", userRoutes);
 app.use("/cart", cartRoutes);
 app.use("/addresses", userAddressesRoutes);
+app.use("/shipping", shippingRoutes)
 
 databaza.sync();
 app.listen(3000, () => {
